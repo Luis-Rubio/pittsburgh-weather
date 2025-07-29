@@ -47,10 +47,23 @@ try:
     # ─────────────────────────────────────────────────────────
 
     
-    city = requests.get("http://api.geonames.org/findNearbyPlaceNameJSON?lat="+lat+"2&lng="+long+"&username=luisjrubio" )
-    output = city.json()
-    city = output.get("city")
+    headers = {
+    "User-Agent": "my-geocoding-app (luis@example.com)"  # Use your real email
+        }
+        
+        city = requests.get("https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json", headers=headers)
+        
+        
+        output = city.json()
+        print(output)
 
+
+#"http://api.geonames.org/findNearbyPlaceNameJSON?lat=32.3792&lng=-86.3077&username=luisjrubio"
+
+#https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json
+
+address = output.get("address", {})
+name = address.get("city") or address.get("town") or address.get("village") or address.get("state") or address.get("suburb") or address.get("county")
 
 
     
@@ -80,7 +93,7 @@ try:
     # ─────────────────────────────────────────────────────────
     plt.figure(figsize=(10, 5))
     plt.plot(time_objs, temperatures, label="Temperature (°C)", color="tab:red", linewidth=2)
-    plt.title("Hourly Temperature Forecast - "+ city)
+    plt.title("Hourly Temperature Forecast - "+ name)
     plt.xlabel("Time")
     plt.ylabel("Temperature (°C)")
     plt.xticks(rotation=45)
