@@ -49,7 +49,7 @@ try:
     "User-Agent": "my-geocoding-app (luis@example.com)"  # Use your real email
     }
         
-    city = requests.get("https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json", headers=headers)
+    city = requests.get(url, headers=headers)
         
         
     output = city.json()
