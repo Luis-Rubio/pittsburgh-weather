@@ -21,9 +21,7 @@ plot_today_filename = os.path.join("data", "today.png")
 # ─────────────────────────────────────────────────────────────
 # Checks for coordinates with Pittsburgh as the default
 # ─────────────────────────────────────────────────────────────
-lat = 40.4406
-long = -79.9959
-def coords(lat, long):
+def coords(lat = 40.4406, long = -79.9959):
     lat = latitude
     long = longitude
 
