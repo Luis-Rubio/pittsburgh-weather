@@ -43,27 +43,27 @@ url = (
 
 try:
     # ─────────────────────────────────────────────────────────
-    # Retrieves city name: couldn't get other api to work so tried this one but this one doens't get the city name
+    # Retrieves city name: 
     # ─────────────────────────────────────────────────────────
 
     
     headers = {
     "User-Agent": "my-geocoding-app (luis@example.com)"  # Use your real email
-        }
+    }
         
-        city = requests.get("https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json", headers=headers)
+    city = requests.get("https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json", headers=headers)
         
         
-        output = city.json()
-        print(output)
+    output = city.json()
+    print(output)
 
 
 #"http://api.geonames.org/findNearbyPlaceNameJSON?lat=32.3792&lng=-86.3077&username=luisjrubio"
 
 #https://nominatim.openstreetmap.org/reverse?lat=32.3792&lon=-86.3077&format=json
 
-address = output.get("address", {})
-name = address.get("city") or address.get("town") or address.get("village") or address.get("state") or address.get("suburb") or address.get("county")
+    address = output.get("address", {})
+    name = address.get("city") or address.get("town") or address.get("village") or address.get("state") or address.get("suburb") or address.get("county")
 
 
     
