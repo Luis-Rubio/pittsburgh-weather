@@ -19,11 +19,22 @@ plot_filename = os.path.join("data", f"{today_str}.png")
 plot_today_filename = os.path.join("data", "today.png")
 
 # ─────────────────────────────────────────────────────────────
-# Open-Meteo API endpoint with parameters for Pittsburgh
+# Checks for coordinates with Pittsburgh as the default
 # ─────────────────────────────────────────────────────────────
+lat = 40.4406
+long = -79.9959
+def coords(lat, long):
+    lat = latitude
+    long = longitude
+
+
+# ─────────────────────────────────────────────────────────────
+# Creates endpoint
+# ─────────────────────────────────────────────────────────────
+
 url = (
     "https://api.open-meteo.com/v1/forecast?"
-    "latitude=40.4406&longitude=-79.9959&"
+    f"latitude={lat}&longitude={long}&"
     "current_weather=true&"
     "hourly=temperature_2m,precipitation,wind_speed_10m&"
     "daily=temperature_2m_max,temperature_2m_min,precipitation_sum&"
@@ -31,6 +42,18 @@ url = (
 )
 
 try:
+    # ─────────────────────────────────────────────────────────
+    # Retrieves city name: couldn't get other api to work so tried this one but this one doens't get the city name
+    # ─────────────────────────────────────────────────────────
+
+    
+    city = requests.get("http://api.geonames.org/findNearbyPlaceNameJSON?lat="+lat+"2&lng="+long+"&username=luisjrubio" )
+    output = city.json()
+    city = output.get("city")
+
+
+
+    
     # ─────────────────────────────────────────────────────────
     # Fetch data from the Open-Meteo API
     # ─────────────────────────────────────────────────────────
@@ -57,7 +80,7 @@ try:
     # ─────────────────────────────────────────────────────────
     plt.figure(figsize=(10, 5))
     plt.plot(time_objs, temperatures, label="Temperature (°C)", color="tab:red", linewidth=2)
-    plt.title("Hourly Temperature Forecast - Pittsburgh")
+    plt.title("Hourly Temperature Forecast - "+ city)
     plt.xlabel("Time")
     plt.ylabel("Temperature (°C)")
     plt.xticks(rotation=45)
